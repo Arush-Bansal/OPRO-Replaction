@@ -1,8 +1,8 @@
 from geminiGenerate import geminiGenerate
-from dataset import BooelanExpresion
+import dataset
 
 def scorePrompt(prompt):
-    Dataset = BooelanExpresion()
+    Dataset = dataset.BooelanExpresion()
     correct = 0
     for example in Dataset:
         generation = geminiGenerate(f"{prompt} {example["target"]}")
@@ -18,4 +18,4 @@ def scorePrompt(prompt):
     score = correct/len(Dataset)
     return score
 
-print(f"score :::: {scorePrompt("Solve the following boolean expresion. Reply with only True or False")}")
+# print(f"score :::: {scorePrompt("Solve the following boolean expresion. Reply with only True or False")}")
