@@ -22,18 +22,28 @@ def geminiGenerate(prompt, Temp = None, max_output_tokens = None):
             generation_config= generation_config
         )
         return response.text
-    except grpc.RpcError as e:
-        if e.code() == grpc.StatusCode.RESOURCE_EXHAUSTED:
-            print("API limit might be hit, trying again in 15 sec..")
-            time.sleep(15)
-            return geminiGenerate(prompt, Temp, max_output_tokens)
-        else:
-            print(e)
-            print("---------")
-            print(e.args)
-            print("---------")
-            print(e.__dict__)
-            return e
+    except Exception as e:
+        print(e)
+        print("---------")
+        print(e.args)
+        print("---------")
+        print(e.__dict__)
+        print("API limit might be hit, trying again in 5 sec...")
+        time.sleep(5)
+        return geminiGenerate(prompt, Temp, max_output_tokens)
+
+    # except grpc.RpcError as e:
+    #     if e.code() == grpc.StatusCode.RESOURCE_EXHAUSTED:
+    #         print("API limit might be hit, trying again in 15 sec..")
+    #         time.sleep(15)
+    #         return geminiGenerate(prompt, Temp, max_output_tokens)
+    #     else:
+    #         print(e)
+    #         print("---------")
+    #         print(e.args)
+    #         print("---------")
+    #         print(e.__dict__)
+    #         return e
 
 
 
